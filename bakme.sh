@@ -175,7 +175,7 @@ operate() {
             if [ "$mode" = "restore" ]; then
                 path+="<$existbackup"
             fi
-            run $mode "db://$path" -b "$base" -o "$out" -n "${prjName:-$prj}-$key" $opts
+            run $mode "db://$path" -b "$base" -o "$out" -n "${prjName:-$prj}--$key" $opts
         else
             if [ "$mode" = "restore" ]; then
                 path="$existbackup"
@@ -188,7 +188,7 @@ operate() {
             fi
 
             if [ "$key" ]; then
-                key="-$key"
+                key="--$key"
             fi
 
 
