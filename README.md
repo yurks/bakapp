@@ -7,7 +7,7 @@ Host, database backup tools.
 Use bash command to download and unpack archive: 
 
 ```bash
-$ curl -L https://github.com/yurks/bakapp/archive/master.tar.gz | tar --transform "s/-master//" -xvzf -
+$ curl -L https://github.com/yurks/bakapp/archive/master.tar.gz | tar -xvzf -; mv bakapp-master bakapp
 ```
 
 or [take it manually](https://github.com/yurks/bakapp/archive/master.tar.gz).
