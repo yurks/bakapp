@@ -44,7 +44,7 @@ parsePrjPath() {
     if [ ! "$base" ] || [ "$base" == "$prjpath" ]; then
         return 1
     fi
-    readarray -t "$1" < <(echo "$prjpath"; echo "$prj"; echo "$base"; if [ -f "$config" ]; then echo "$config"; fi)
+    readarray -t "$1" <<< "$(echo "$prjpath"; echo "$prj"; echo "$base"; if [ -f "$config" ]; then echo "$config"; fi)"
     return 0
 }
 
