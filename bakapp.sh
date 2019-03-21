@@ -382,7 +382,18 @@ fi
 hasdiff=0
 if [[ $mode == diff* ]]; then
 
-    cmd="diff -U 0 <($cmdTest | sort) <($cmdList | sort)"
+    tmpfile1=$(mktemp)
+    tmpfile2=$(mktemp)
+    
+    cmd="$cmdTest | sort > $tmpfile1"
+    logeval $cmd
+    eval "$cmd"
+
+    cmd="$cmdList | sort > $tmpfile2"
+    logeval $cmd
+    eval "$cmd"
+
+    cmd="diff -U 0 $tmpfile1 $tmpfile2"
     logeval $cmd
     diffFiles=$(eval "$cmd")
     exitIfErr -gt 1
@@ -393,6 +404,10 @@ if [[ $mode == diff* ]]; then
         log yellow "diff:"
         echo "$diffFiles" | grep "^[^@]" | sed 1,2d
     fi
+
+    cmd="rm -f $tmpfile1 $tmpfile2"
+    logeval $cmd
+    eval "$cmd"
 
     cmd="tar -dapsf \"$existBackup\" --directory \"$basepath\""
     logeval $cmd
